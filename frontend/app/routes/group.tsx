@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import GoogleMapReact from 'google-map-react';
 import circuits from '../circuits.json';
 import DriverMarker from '../components/DriverMarker';
+import mqtt from 'mqtt';
 
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
@@ -20,7 +21,68 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
   const mapRef = useRef<google.maps.Map | null>(null);
   const mapsRef = useRef<any>(null);
   const finishLineRef = useRef<google.maps.Polyline | null>(null);
-  const [driver1Position, setDriver1Position] = useState({ lat: 41.5700, lng: 2.2611 }); // Mock position for Driver 1
+
+  // -------------- MQTT
+  const [client, setClient] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState('Connecting...');
+  const [messages, setMessages] = useState([]);
+  const [publishTopic, setPublishTopic] = useState('react/demo/publish');
+  const [publishMessage, setPublishMessage] = useState('');
+  
+  useEffect(() => {
+    
+    const subscribeTopic = `/${groupId }/#`;
+    const brokerURL = import.meta.env.VITE_BROKER_IP_ADDRESS;
+    console.log("Broker at",brokerURL);
+    const newClient = mqtt.connect(brokerURL);
+    
+    newClient.on('connect', () => {
+      setConnectionStatus('Connected!');
+      console.log('Connected to MQTT broker.');
+
+      // Subscribe to the default topic after a successful connection.
+      newClient.subscribe(subscribeTopic, (err) => {
+        if (!err) {
+          console.log(`Subscribed to topic: ${subscribeTopic}`);
+          setMessages(prev => [...prev, { topic: 'System', message: `Subscribed to ${subscribeTopic}` }]);
+        } else {
+          console.error(`Subscription error: ${err}`);
+        }
+      });
+    });
+
+    newClient.on('message', (topic, message) => {
+      const payload = message.toString();
+      console.log(`Received message on topic "${topic}": ${payload}`);
+      // Update the state with the new message.
+      setMessages(prevMessages => [...prevMessages, { topic, message: payload }]);
+    });
+
+    // Event handler for connection errors.
+    newClient.on('error', (err) => {
+      setConnectionStatus(`Error: ${err.message}`);
+      console.error('MQTT Connection Error:', err);
+      newClient.end();
+    });
+    
+
+    // Cleanup function for the useEffect hook.
+    // This is crucial to ensure the WebSocket connection is closed properly when the component unmounts.
+    return () => {
+      if (client) {
+        client.end();
+      }
+    };
+
+
+  },[]);
+  
+
+
+  // -------------- END MQTT
+
+
+
 
   const handleCircuitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const circuitName = event.target.value;
