@@ -81,10 +81,10 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       <div className="flex flex-col w-full lg:w-4/5 flex-grow flex-grow-2">
-        <div className="p-4 bg-gray-800 flex justify-between items-center">
+        <div className="p-4 bg-gray-800 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
           <h1 className="text-2xl font-bold text-white">Group ID: {groupId}</h1>
-          <div>
-            <select onChange={handleCircuitChange} className="p-2 rounded border mr-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-0">
+            <select onChange={handleCircuitChange} className="p-2 rounded border sm:mr-2">
               <option value="">Select a Circuit</option>
               {Object.keys(circuits).map(circuitName => (
                 <option key={circuitName} value={circuitName}>{circuitName}</option>
