@@ -5,8 +5,8 @@ import React, { useState, useEffect } from 'react';
 const useNavigate = () => {
   return (path) => {
     console.log(`Navigating to: ${path}`);
-    // In a real app, this would change the URL
-    // window.location.pathname = path; 
+    // In a real app, this would change the URL. I've enabled this for the preview.
+    window.location.pathname = path; 
   };
 };
 
