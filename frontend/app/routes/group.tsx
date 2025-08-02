@@ -32,7 +32,7 @@ export default function Group() {
 
   return (
     <div className="flex h-screen">
-      <div className="w-4/5">
+      <div className="flex flex-col w-4/5">
         <div className="p-4 bg-gray-800 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-white">Group ID: {groupId}</h1>
           <div>
@@ -48,18 +48,20 @@ export default function Group() {
             </select>
           </div>
         </div>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY }}
-          center={center}
-          zoom={zoom}
-          options={{ mapTypeId: mapMode }}
-        >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact>
+        <div className="flex-grow">
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY }}
+            center={center}
+            zoom={zoom}
+            options={{ mapTypeId: mapMode }}
+          >
+            <AnyReactComponent
+              lat={59.955413}
+              lng={30.337844}
+              text="My Marker"
+            />
+          </GoogleMapReact>
+        </div>
       </div>
       <div className="w-1/5 bg-gray-900 p-4 text-white">
         <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
