@@ -5,6 +5,12 @@ import circuits from '../circuits.json';
 
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
+const mockLapTimes = [
+  { driver: 'Driver 1', last: '1:23.456', best: '1:22.123', timestamp: '14:32' },
+  { driver: 'Driver 2', last: '1:24.789', best: '1:23.999', timestamp: '14:33' },
+  { driver: 'Driver 3', last: '1:22.999', best: '1:22.999', timestamp: '14:31' },
+];
+
 export default function Group() {
   const { groupId } = useParams();
   const [center, setCenter] = useState({ lat: 10.99835602, lng: 77.01502627 });
@@ -25,34 +31,59 @@ export default function Group() {
   };
 
   return (
-    <div className="h-screen w-full">
-      <div className="p-4 bg-gray-800 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Group ID: {groupId}</h1>
-        <div>
-          <select onChange={handleCircuitChange} className="p-2 rounded border mr-2">
-            <option value="">Select a Circuit</option>
-            {Object.keys(circuits).map(circuitName => (
-              <option key={circuitName} value={circuitName}>{circuitName}</option>
-            ))}
-          </select>
-          <select onChange={handleMapModeChange} className="p-2 rounded border">
-            <option value="roadmap">Roadmap</option>
-            <option value="satellite">Satellite</option>
-          </select>
+    <div className="flex h-screen">
+      <div className="w-4/5">
+        <div className="p-4 bg-gray-800 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-white">Group ID: {groupId}</h1>
+          <div>
+            <select onChange={handleCircuitChange} className="p-2 rounded border mr-2">
+              <option value="">Select a Circuit</option>
+              {Object.keys(circuits).map(circuitName => (
+                <option key={circuitName} value={circuitName}>{circuitName}</option>
+              ))}
+            </select>
+            <select onChange={handleMapModeChange} className="p-2 rounded border">
+              <option value="roadmap">Roadmap</option>
+              <option value="satellite">Satellite</option>
+            </select>
+          </div>
         </div>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY }}
+          center={center}
+          zoom={zoom}
+          options={{ mapTypeId: mapMode }}
+        >
+          <AnyReactComponent
+            lat={59.955413}
+            lng={30.337844}
+            text="My Marker"
+          />
+        </GoogleMapReact>
       </div>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY }}
-        center={center}
-        zoom={zoom}
-        options={{ mapTypeId: mapMode }}
-      >
-        <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
-      </GoogleMapReact>
+      <div className="w-1/5 bg-gray-900 p-4 text-white">
+        <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="text-left">Driver</th>
+              <th className="text-left">Last</th>
+              <th className="text-left">Best</th>
+              <th className="text-left">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mockLapTimes.map((lap, index) => (
+              <tr key={index}>
+                <td>{lap.driver}</td>
+                <td>{lap.last}</td>
+                <td>{lap.best}</td>
+                <td>{lap.timestamp}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
