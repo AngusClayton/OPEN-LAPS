@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import mqtt from 'mqtt';
 // In a real app, you would use a library like react-router-dom
 // This is a mock for demonstration purposes
 const useNavigate = () => {
@@ -75,6 +75,55 @@ const Drive: React.FC = () => {
       { lap: prevLaps.length + 1, time: newTime }
     ]);
   };
+
+
+  // -------------- MQTT
+  const [client, setClient] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState('Connecting...');
+  const [messages, setMessages] = useState([]);
+  const [publishTopic, setPublishTopic] = useState('react/demo/publish');
+  const [publishMessage, setPublishMessage] = useState('');
+
+  useEffect(() => {
+      
+      const brokerURL = import.meta.env.VITE_BROKER_IP_ADDRESS;
+      console.log("Broker at",brokerURL);
+      const newClient = mqtt.connect(brokerURL);
+      
+      newClient.on('connect', () => {
+        setConnectionStatus('Connected!');
+        console.log('Connected to MQTT broker.');
+  
+        
+      });
+  
+      
+  
+      // Event handler for connection errors.
+      newClient.on('error', (err) => {
+        setConnectionStatus(`Error: ${err.message}`);
+        console.error('MQTT Connection Error:', err);
+        newClient.end();
+      });
+      
+  
+      // Cleanup function for the useEffect hook.
+      // This is crucial to ensure the WebSocket connection is closed properly when the component unmounts.
+      return () => {
+        if (client) {
+          client.end();
+        }
+      };
+  
+  
+    },[]);
+    
+  
+  
+    // -------------- END MQTT
+
+
+
 
   return (
     <div className="bg-slate-900 text-white font-sans">
