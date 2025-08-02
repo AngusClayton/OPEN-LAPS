@@ -1,14 +1,6 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
-// In a real app, you would use a library like react-router-dom
-// This is a mock for demonstration purposes
-const useNavigate = () => {
-  return (path) => {
-    console.log(`Navigating to: ${path}`);
-    // In a real app, this would change the URL
-    // window.location.pathname = path; 
-  };
-};
 
 // --- Helper: Icon Components (using inline SVG for portability) ---
 const UsersIcon = (props) => (
@@ -44,15 +36,23 @@ const ArrowRightIcon = (props) => (
     </svg>
 );
 
+const LogOutIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
+);
+
 
 export default function Landing() {
   const [groupId, setGroupId] = useState("");
   const [existingGroupId, setExistingGroupId] = useState < string | null > (null);
+  //const navigate = useNavigate();
   const navigate = useNavigate();
 
   // On component mount, check if a group ID already exists in session storage.
   useEffect(() => {
-    // This is for demonstration. In a real app, you might fetch this from a server.
     const storedGroupId = window.sessionStorage.getItem("groupId");
     if (storedGroupId) {
       setExistingGroupId(storedGroupId);
@@ -66,7 +66,9 @@ export default function Landing() {
   const createGroup = () => {
     const newGroupId = Math.random().toString(36).substring(2, 8).toUpperCase();
     window.sessionStorage.setItem("groupId", newGroupId);
-    navigate(`/group/${newGroupId}`);
+    // Also update the state to reflect the new group immediately
+    setExistingGroupId(newGroupId); 
+    //navigate(`/group/${newGroupId}`);
   };
 
   /**
@@ -75,7 +77,9 @@ export default function Landing() {
   const joinGroup = () => {
     if (groupId) {
       window.sessionStorage.setItem("groupId", groupId);
-      navigate(`/group/${groupId}`);
+      setExistingGroupId(groupId); // Update state to show the new group
+      //navigate(`/group/${groupId}`);
+      //setGroupId(""); // Clear input field after joining
     }
   };
 
@@ -87,6 +91,15 @@ export default function Landing() {
       navigate(`/group/${existingGroupId}`);
     }
   };
+  
+  /**
+   * Removes the current group from session storage and updates the state,
+   * returning the user to the default view.
+   */
+  const leaveGroup = () => {
+      window.sessionStorage.removeItem("groupId");
+      setExistingGroupId(null);
+  };
 
   /**
    * Handles the action to drive for a specific group.
@@ -96,7 +109,6 @@ export default function Landing() {
    */
   const handleDriveForGroup = (id) => {
     if (!id) return; // Don't do anything if the ID is empty
-    // This logic is preserved from your original code.
     const driverName = window.localStorage.getItem('driverName');
     if (!driverName) {
       window.sessionStorage.setItem('pendingDriveGroupId', id);
@@ -107,88 +119,6 @@ export default function Landing() {
     }
   };
 
-  // --- Render Logic ---
-  
-  // Renders the view for a user who is already part of a group.
-  const renderExistingGroupView = () => (
-    <div className="text-center">
-      <p className="text-slate-400 mb-2">Welcome back! You are in group:</p>
-      <p className="text-2xl font-bold text-white bg-slate-700/50 rounded-lg px-4 py-2 inline-block mb-6">
-        {existingGroupId}
-      </p>
-      <div className="flex flex-col sm:flex-row gap-4">
-        <button
-          onClick={goToGroup}
-          className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-900 transition-all duration-200"
-        >
-          <UsersIcon className="h-5 w-5" />
-          View Group
-        </button>
-        <button
-          onClick={() => handleDriveForGroup(existingGroupId)}
-          className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-slate-900 transition-all duration-200"
-        >
-          <CarIcon className="h-5 w-5" />
-          Drive for Group
-        </button>
-      </div>
-    </div>
-  );
-
-  // Renders the view for a new user to join or create a group.
-  const renderNewUserView = () => (
-    <div className="space-y-6">
-      {/* Join Group Section */}
-      <div>
-        <label htmlFor="groupId" className="block text-sm font-medium text-slate-300 mb-2">
-            Join an Existing Group
-        </label>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <input
-            id="groupId"
-            type="text"
-            value={groupId}
-            onChange={(e) => setGroupId(e.target.value.toUpperCase())}
-            placeholder="ENTER GROUP ID"
-            className="w-full flex-grow bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-          />
-          <button
-            onClick={joinGroup}
-            disabled={!groupId}
-            className="flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 disabled:bg-slate-500 disabled:cursor-not-allowed transition-all duration-200"
-          >
-            <ArrowRightIcon className="h-5 w-5" />
-            <span>Join</span>
-          </button>
-          <button
-            onClick={() => handleDriveForGroup(groupId)}
-            disabled={!groupId}
-            className="flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 disabled:bg-slate-500 disabled:cursor-not-allowed transition-all duration-200"
-          >
-            <CarIcon className="h-5 w-5" />
-            <span>Drive</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Separator */}
-      <div className="flex items-center">
-        <hr className="w-full border-slate-600" />
-        <span className="px-4 text-slate-400 font-medium">OR</span>
-        <hr className="w-full border-slate-600" />
-      </div>
-
-      {/* Create Group Section */}
-      <button
-        onClick={createGroup}
-        className="w-full flex items-center justify-center gap-2 bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-slate-900 transition-all duration-200"
-      >
-        <PlusCircleIcon className="h-6 w-6"/>
-        Create a New Group
-      </button>
-    </div>
-  );
-
   return (
     <div className="bg-slate-900 text-white font-sans">
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -197,20 +127,101 @@ export default function Landing() {
             <h1 className="text-5xl font-extrabold tracking-tight mb-2
                            bg-gradient-to-r from-purple-400 via-indigo-400 to-green-400
                            text-transparent bg-clip-text">
-              Jordan Tracker
+              openLaps
             </h1>
             <p className="text-slate-400">
-              Track your group's journey in real-time.
+              Track your group's trackday in real-time, only a phone required!
             </p>
           </header>
 
-          <main className="bg-slate-800/50 p-6 sm:p-8 rounded-2xl shadow-2xl border border-slate-700">
-            {existingGroupId ? renderExistingGroupView() : renderNewUserView()}
+          <main className="bg-slate-800/50 p-6 sm:p-8 rounded-2xl shadow-2xl border border-slate-700 space-y-6">
+            {/* --- Current Group View (Conditional) --- */}
+            {existingGroupId && (
+                 <div className="text-center p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                    <p className="text-slate-400 mb-2">You are currently in group:</p>
+                    <p className="text-2xl font-bold text-white bg-slate-700/50 rounded-lg px-4 py-2 inline-block mb-6">
+                        {existingGroupId}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                        <button
+                        onClick={goToGroup}
+                        className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-900 transition-all duration-200"
+                        >
+                        <UsersIcon className="h-5 w-5" />
+                        Watch
+                        </button>
+                        <button
+                        onClick={() => handleDriveForGroup(existingGroupId)}
+                        className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-slate-900 transition-all duration-200"
+                        >
+                        <CarIcon className="h-5 w-5" />
+                        Drive 
+                        </button>
+                    </div>
+                     <button
+                        onClick={leaveGroup}
+                        className="w-full flex items-center justify-center gap-2 bg-red-600/80 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 focus:ring-offset-slate-900 transition-all duration-200"
+                    >
+                        <LogOutIcon className="h-5 w-5" />
+                        Leave Group
+                    </button>
+                </div>
+            )}
+
+            {/* --- Separator (Conditional) --- */}
+            {existingGroupId && (
+                 <div className="flex items-center">
+                    <hr className="w-full border-slate-600" />
+                    <span className="px-4 text-slate-400 font-medium">ACTIONS</span>
+                    <hr className="w-full border-slate-600" />
+                </div>
+            )}
+
+            {/* --- Join Group Section --- */}
+            <div>
+              <label htmlFor="groupId" className="block text-sm font-medium text-slate-300 mb-2">
+                  {existingGroupId ? 'Join a Different Group' : 'Join an Existing Group'}
+              </label>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  id="groupId"
+                  type="text"
+                  value={groupId}
+                  onChange={(e) => setGroupId(e.target.value.toUpperCase())}
+                  placeholder="ENTER GROUP ID"
+                  className="w-full flex-grow bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                />
+                <button
+                  onClick={joinGroup}
+                  disabled={!groupId}
+                  className="flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 disabled:bg-slate-500 disabled:cursor-not-allowed transition-all duration-200"
+                >
+                  <ArrowRightIcon className="h-5 w-5" />
+                  <span>Join</span>
+                </button>
+              </div>
+            </div>
+
+            {/* --- Separator --- */}
+            <div className="flex items-center">
+              <hr className="w-full border-slate-600" />
+              <span className="px-4 text-slate-400 font-medium">OR</span>
+              <hr className="w-full border-slate-600" />
+            </div>
+
+            {/* --- Create Group Section --- */}
+            <button
+              onClick={createGroup}
+              className="w-full flex items-center justify-center gap-2 bg-purple-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-slate-900 transition-all duration-200"
+            >
+              <PlusCircleIcon className="h-6 w-6"/>
+              Create a New Group
+            </button>
           </main>
           
           <footer className="text-center mt-8">
             <p className="text-sm text-slate-500">
-                Powered by modern technology.
+                Footer goes here ai slop
             </p>
           </footer>
         </div>
