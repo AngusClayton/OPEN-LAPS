@@ -50,3 +50,13 @@ To fix this, use `chmod 0700 /mosquitto/config/acl.conf`.
 1754109095: Received PUBLISH from groupA (d0, q0, r0, m0, '/groupA/angus', ... (19 bytes))
 1754109095: Sending PUBLISH to groupA (d0, q0, r0, m0, '/groupA/angus', ... (19 bytes))
 1754109100: Denied PUBLISH from groupA (d0, q0, r0, m0, '/groupAb/angus', ... (19 bytes))
+1754109160: Received PINGREQ from groupA
+1754109160: Sending PINGRESP to groupA
+1754109221: Received PINGREQ from groupA
+1754109221: Sending PINGRESP to groupA
+1754109282: Received PINGREQ from groupA
+1754109282: Sending PINGRESP to groupA
+1754109343: Received PINGREQ from groupA
+1754109343: Sending PINGRESP to groupA
+1754109403: Received PINGREQ from groupA
+1754109403: Sending PINGRESP to groupA
