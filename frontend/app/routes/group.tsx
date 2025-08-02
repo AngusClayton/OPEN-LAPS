@@ -79,8 +79,8 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
   }, [mapRef.current, mapsRef.current, selectedCircuitName]);
 
   return (
-    <div className="flex h-screen">
-      <div className="flex flex-col w-4/5">
+    <div className="flex flex-col lg:flex-row h-screen">
+      <div className="flex flex-col w-full lg:w-4/5 flex-grow flex-grow-2">
         <div className="p-4 bg-gray-800 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-white">Group ID: {groupId}</h1>
           <div>
@@ -116,7 +116,7 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
           </GoogleMapReact>
         </div>
       </div>
-      <div className="w-1/5 bg-gray-900 p-4 text-white">
+      <div className="w-full lg:w-1/5 bg-gray-900 p-4 text-white flex-grow flex-grow-1">
         <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
         <table className="w-full">
           <thead>
