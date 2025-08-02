@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useParams } from "react-router";
 import GoogleMapReact from 'google-map-react';
 import circuits from '../circuits.json';
@@ -16,6 +16,9 @@ export default function Group() {
   const [center, setCenter] = useState({ lat: 10.99835602, lng: 77.01502627 });
   const [zoom, setZoom] = useState(11);
   const [mapMode, setMapMode] = useState('roadmap');
+  const mapRef = useRef<google.maps.Map | null>(null);
+  const mapsRef = useRef<any>(null);
+  const finishLineRef = useRef<google.maps.Polyline | null>(null);
 
   const handleCircuitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const circuitName = event.target.value;
@@ -23,11 +26,34 @@ export default function Group() {
       const circuit = circuits[circuitName];
       setCenter({ lat: circuit.lat, lng: circuit.lng });
       setZoom(circuit.zoom);
+
+      // Draw finish line
+      if (mapRef.current && mapsRef.current) {
+        if (finishLineRef.current) {
+          finishLineRef.current.setMap(null); // Clear existing line
+        }
+        if (circuit.finishLine) {
+          const newFinishLine = new mapsRef.current.Polyline({
+            path: circuit.finishLine,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 5,
+          });
+          newFinishLine.setMap(mapRef.current);
+          finishLineRef.current = newFinishLine;
+        }
+      }
     }
   };
 
   const handleMapModeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setMapMode(event.target.value);
+  };
+
+  const handleApiLoaded = ({ map, maps }: { map: google.maps.Map, maps: any }) => {
+    mapRef.current = map;
+    mapsRef.current = maps;
   };
 
   return (
@@ -54,6 +80,8 @@ export default function Group() {
             center={center}
             zoom={zoom}
             options={{ mapTypeId: mapMode }}
+            onGoogleApiLoaded={handleApiLoaded}
+            yesIWantToUseGoogleMapApiInternals
           >
             <AnyReactComponent
               lat={59.955413}

@@ -2,21 +2,37 @@
   "Circuit de Barcelona-Catalunya": {
     "lat": 41.5700,
     "lng": 2.2611,
-    "zoom": 15
+    "zoom": 15,
+    "finishLine": [
+      { "lat": 41.5695, "lng": 2.2600 },
+      { "lat": 41.5705, "lng": 2.2620 }
+    ]
   },
   "Circuit de Monaco": {
     "lat": 43.7347,
     "lng": 7.4206,
-    "zoom": 16
+    "zoom": 16,
+    "finishLine": [
+      { "lat": 43.7340, "lng": 7.4200 },
+      { "lat": 43.7350, "lng": 7.4210 }
+    ]
   },
   "Silverstone Circuit": {
     "lat": 52.0786,
     "lng": -1.0169,
-    "zoom": 15
+    "zoom": 15,
+    "finishLine": [
+      { "lat": 52.0780, "lng": -1.0175 },
+      { "lat": 52.0790, "lng": -1.0160 }
+    ]
   },
-  "Freyberg St Circut":{
+    "Freyberg St Circut":{
     "lat":-32.930986, 
     "lng":151.706901,
-    "zoom":17
+    "zoom":17,
+    "finishLine": [
+      {"lat":-32.933077, "lng":151.706718},
+      {"lat":-32.932939,"lng":151.706751}
+    ]
   }
 }
