@@ -1,0 +1,52 @@
+1754108679: mosquitto version 2.0.22 starting
+1754108679: Config loaded from /mosquitto/config/mosquitto.conf.
+1754108679: Warning: File /mosquitto/config/passwords.conf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/passwords.conf`.
+1754108679: Warning: File /mosquitto/config/acl.conf has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/acl.conf`.
+1754108679: Opening ipv4 listen socket on port 1883.
+1754108679: Opening ipv6 listen socket on port 1883.
+1754108679: Opening websockets listen socket on port 9001.
+1754108679: mosquitto version 2.0.22 running
+1754108683: New connection from 192.168.65.1:61274 on port 1883.
+1754108683: New client connected from 192.168.65.1:61274 as groupA (p1, c1, k60).
+1754108732: Client groupA disconnected.
+1754108737: New connection from 192.168.65.1:22428 on port 1883.
+1754108737: Client groupA disconnected, not authorised.
+1754108742: New connection from 192.168.65.1:64719 on port 1883.
+1754108742: New client connected from 192.168.65.1:64719 as groupA (p1, c1, k60).
+1754108863: mosquitto version 2.0.22 terminating
+1754108867: No will message specified.
+1754108867: Sending CONNACK to groupA (0, 0)
+1754108867: Received SUBSCRIBE from groupA
+1754108867: 	groupA/# (QoS 0)
+1754108867: Sending SUBACK to groupA
+1754108895: Denied PUBLISH from groupA (d0, q0, r0, m0, '/groupA/angus', ... (19 bytes))
+1754108911: Denied PUBLISH from groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754108972: Received PINGREQ from groupA
+1754108972: Sending PINGRESP to groupA
+1754108998: No will message specified.
+1754108998: Sending CONNACK to groupA (0, 0)
+1754108998: Received SUBSCRIBE from groupA
+1754108998: 	groupA/# (QoS 0)
+1754108998: Sending SUBACK to groupA
+1754109000: Received PUBLISH from groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109000: Sending PUBLISH to groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109005: Received PUBLISH from groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109005: Sending PUBLISH to groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109005: Received PUBLISH from groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109005: Sending PUBLISH to groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109066: Received PINGREQ from groupA
+1754109066: Sending PINGRESP to groupA
+1754109073: No will message specified.
+1754109073: Sending CONNACK to groupA (0, 0)
+1754109073: Received SUBSCRIBE from groupA
+1754109073: 	groupA/# (QoS 0)
+1754109073: Sending SUBACK to groupA
+1754109077: Denied PUBLISH from groupA (d0, q0, r0, m0, 'groupA/angus', ... (19 bytes))
+1754109091: Received SUBSCRIBE from groupA
+1754109091: 	/groupA/# (QoS 0)
+1754109091: Sending SUBACK to groupA
+1754109095: Received PUBLISH from groupA (d0, q0, r0, m0, '/groupA/angus', ... (19 bytes))
+1754109095: Sending PUBLISH to groupA (d0, q0, r0, m0, '/groupA/angus', ... (19 bytes))
+1754109100: Denied PUBLISH from groupA (d0, q0, r0, m0, '/groupAb/angus', ... (19 bytes))
