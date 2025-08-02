@@ -6,9 +6,9 @@ import circuits from '../circuits.json';
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
 const mockLapTimes = [
-  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31' },
-  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30' },
-  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29' },
+  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live' },
+  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live' },
+  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live' },
 ];
 
 export default function Group() {
@@ -67,16 +67,26 @@ export default function Group() {
           <thead>
             <tr>
               <th className="text-left">Driver</th>
-              <th className="text-left">Last</th>
-              <th className="text-left">Best</th>
+              <th className="text-left">Lap Times</th>
             </tr>
           </thead>
           <tbody>
             {mockLapTimes.map((lap, index) => (
               <tr key={index}>
-                <td>{lap.driver}</td>
-                <td>{lap.last} <span className="text-gray-400 text-sm">({lap.lastTimestamp})</span></td>
-                <td className="text-green-400">{lap.best} <span className="text-gray-400 text-sm">({lap.bestTimestamp})</span></td>
+                <td className="py-2">
+                  <div className="font-bold text-lg">{lap.driver}</div>
+                  {lap.status === 'Live' && (
+                    <div className="text-sm text-green-500 flex items-center">
+                      <span className="inline-block w-2 h-2 mr-1 rounded-full bg-green-500"></span>Live
+                    </div>
+                  )}
+                </td>
+                <td className="py-2">
+                  <div><span className="text-xs">Last:</span> <span className="text-base">{lap.last}</span></div>
+                  <div className="text-gray-400 text-sm">({lap.lastTimestamp})</div>
+                  <div className="text-green-400"><span className="text-xs">Best:</span> <span className="text-base">{lap.best}</span></div>
+                  <div className="text-gray-400 text-sm">({lap.bestTimestamp})</div>
+                </td>
               </tr>
             ))}
           </tbody>
