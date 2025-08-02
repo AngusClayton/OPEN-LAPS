@@ -2,13 +2,14 @@ import { useState, useRef } from "react";
 import { useParams } from "react-router";
 import GoogleMapReact from 'google-map-react';
 import circuits from '../circuits.json';
+import DriverMarker from '../components/DriverMarker';
 
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
 const mockLapTimes = [
-  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live' },
-  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live' },
-  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live' },
+  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live', position: { lat: -32.932557, lng: 151.704341 } },
+  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live', position: { lat: 41.5700, lng: 2.2611 } },
+  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live', position: { lat: 43.7347, lng: 7.4206 } },
 ];
 
 export default function Group() {
@@ -19,6 +20,7 @@ export default function Group() {
   const mapRef = useRef<google.maps.Map | null>(null);
   const mapsRef = useRef<any>(null);
   const finishLineRef = useRef<google.maps.Polyline | null>(null);
+  const [driver1Position, setDriver1Position] = useState({ lat: 41.5700, lng: 2.2611 }); // Mock position for Driver 1
 
   const handleCircuitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const circuitName = event.target.value;
@@ -83,11 +85,14 @@ export default function Group() {
             onGoogleApiLoaded={handleApiLoaded}
             yesIWantToUseGoogleMapApiInternals
           >
-            <AnyReactComponent
-              lat={59.955413}
-              lng={30.337844}
-              text="My Marker"
-            />
+            {mockLapTimes.map((driver, index) => (
+              <DriverMarker
+                key={index}
+                lat={driver.position.lat}
+                lng={driver.position.lng}
+                driverName={driver.driver}
+              />
+            ))}
           </GoogleMapReact>
         </div>
       </div>
