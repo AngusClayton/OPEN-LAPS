@@ -6,11 +6,11 @@ import DriverMarker from '../components/DriverMarker';
 
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
-const mockLapTimes = [
-  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live', position: { lat: -32.932557, lng: 151.704341 } },
-  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live', position: { lat: 41.5700, lng: 2.2611 } },
-  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live', position: { lat: 43.7347, lng: 7.4206 } },
-];
+  const [mockLapTimes, setMockLapTimes] = useState([
+    { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live', position: { lat: -32.932557, lng: 151.704341 } },
+    { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live', position: { lat: 41.5700, lng: 2.2611 } },
+    { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live', position: { lat: 43.7347, lng: 7.4206 } },
+  ]);
 
 export default function Group() {
   const { groupId } = useParams();
