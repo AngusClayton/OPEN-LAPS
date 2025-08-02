@@ -1,6 +1,11 @@
 
 version: '3.8'
 services:
+  frontend:
+    image: frontend
+    ports:
+      - "80:3000"
+    restart: unless-stopped
   mosquitto:
     image: eclipse-mosquitto:latest
     container_name: mosquitto
