@@ -58,12 +58,11 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
       // If the topic ends with /pos and payload is a driver position update
       if (topic.endsWith('/pos')) {
-        console.log("Recieved driver position message");
+        console.log("Received driver position message");
         try {
           const data = JSON.parse(payload);
           if (data.driver && typeof data.lat === 'number' && typeof data.lng === 'number') {
             setMockLapTimes(prevLapTimes => {
-              // Update the position for the driver if found, else add new driver
               const found = prevLapTimes.some(lap => lap.driver === data.driver);
               if (found) {
                 console.log("found match");
@@ -73,7 +72,6 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
                     : lap
                 );
               } else {
-                // Optionally add a new driver if not found
                 return [
                   ...prevLapTimes,
                   {
@@ -91,6 +89,51 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
           }
         } catch (e) {
           console.error('Failed to parse driver position payload:', e);
+        }
+      }
+      // If the topic ends with /time and payload is a driver time update
+      if (topic.endsWith('/time')) {
+        console.log("Received driver time message");
+        try {
+          const data = JSON.parse(payload);
+          if (data.driver && typeof data.latest === 'number' && typeof data.best === 'number') {
+            setMockLapTimes(prevLapTimes => {
+              const found = prevLapTimes.some(lap => lap.driver === data.driver);
+              const formatTime = (t: number) => {
+                // Format seconds as m:ss.sss
+                const min = Math.floor(t / 60);
+                const sec = (t % 60).toFixed(3);
+                return `${min}:${sec.padStart(6, '0')}`;
+              };
+              const bestTimestamp = data['best-ts'] ? new Date(data['best-ts'] * 1000).toLocaleTimeString() : '';
+              return found
+                ? prevLapTimes.map(lap =>
+                    lap.driver === data.driver
+                      ? {
+                          ...lap,
+                          last: formatTime(data.latest),
+                          lastTimestamp: new Date().toLocaleTimeString(),
+                          best: formatTime(data.best),
+                          bestTimestamp: bestTimestamp || lap.bestTimestamp
+                        }
+                      : lap
+                  )
+                : [
+                    ...prevLapTimes,
+                    {
+                      driver: data.driver,
+                      last: formatTime(data.latest),
+                      lastTimestamp: new Date().toLocaleTimeString(),
+                      best: formatTime(data.best),
+                      bestTimestamp: bestTimestamp,
+                      status: 'Live',
+                      position: { lat: 0, lng: 0 }
+                    }
+                  ];
+            });
+          }
+        } catch (e) {
+          console.error('Failed to parse driver time payload:', e);
         }
       }
     });
