@@ -60,3 +60,19 @@ To fix this, use `chmod 0700 /mosquitto/config/acl.conf`.
 1754109343: Sending PINGRESP to groupA
 1754109403: Received PINGREQ from groupA
 1754109403: Sending PINGRESP to groupA
+1754109499: No will message specified.
+1754109499: Sending CONNACK to groupA (0, 0)
+1754109499: Received SUBSCRIBE from groupA
+1754109499: 	groupA/# (QoS 0)
+1754109499: 	/groupA/# (QoS 0)
+1754109499: Sending SUBACK to groupA
+1754109573: Received PINGREQ from groupA
+1754109573: Sending PINGRESP to groupA
+1754109639: Received PINGREQ from groupA
+1754109639: Sending PINGRESP to groupA
+1754109701: Received PINGREQ from groupA
+1754109701: Sending PINGRESP to groupA
+1754109763: Received PINGREQ from groupA
+1754109763: Sending PINGRESP to groupA
+1754109841: Received PINGREQ from groupA
+1754109841: Sending PINGRESP to groupA
