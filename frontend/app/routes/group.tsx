@@ -6,9 +6,9 @@ import circuits from '../circuits.json';
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
 const mockLapTimes = [
-  { driver: 'Driver 1', last: '1:23.456', best: '1:22.123', timestamp: '14:32' },
-  { driver: 'Driver 2', last: '1:24.789', best: '1:23.999', timestamp: '14:33' },
-  { driver: 'Driver 3', last: '1:22.999', best: '1:22.999', timestamp: '14:31' },
+  { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31' },
+  { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30' },
+  { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29' },
 ];
 
 export default function Group() {
@@ -69,16 +69,14 @@ export default function Group() {
               <th className="text-left">Driver</th>
               <th className="text-left">Last</th>
               <th className="text-left">Best</th>
-              <th className="text-left">Time</th>
             </tr>
           </thead>
           <tbody>
             {mockLapTimes.map((lap, index) => (
               <tr key={index}>
                 <td>{lap.driver}</td>
-                <td>{lap.last}</td>
-                <td>{lap.best}</td>
-                <td>{lap.timestamp}</td>
+                <td>{lap.last} <span className="text-gray-400 text-sm">({lap.lastTimestamp})</span></td>
+                <td className="text-green-400">{lap.best} <span className="text-gray-400 text-sm">({lap.bestTimestamp})</span></td>
               </tr>
             ))}
           </tbody>
