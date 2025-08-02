@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router";
 import GoogleMapReact from 'google-map-react';
 import circuits from '../circuits.json';
@@ -6,17 +6,17 @@ import DriverMarker from '../components/DriverMarker';
 
 const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
 
+  export default function Group() {
   const [mockLapTimes, setMockLapTimes] = useState([
     { driver: 'Driver 1', last: '1:23.456', lastTimestamp: '14:32', best: '1:22.123', bestTimestamp: '14:31', status: 'Live', position: { lat: -32.932557, lng: 151.704341 } },
     { driver: 'Driver 2', last: '1:24.789', lastTimestamp: '14:33', best: '1:23.999', bestTimestamp: '14:30', status: 'Live', position: { lat: 41.5700, lng: 2.2611 } },
     { driver: 'Driver 3', last: '1:22.999', lastTimestamp: '14:31', best: '1:22.999', bestTimestamp: '14:29', status: 'Live', position: { lat: 43.7347, lng: 7.4206 } },
   ]);
-
-export default function Group() {
   const { groupId } = useParams();
   const [center, setCenter] = useState({ lat: 10.99835602, lng: 77.01502627 });
   const [zoom, setZoom] = useState(11);
   const [mapMode, setMapMode] = useState('roadmap');
+  const [selectedCircuitName, setSelectedCircuitName] = useState<string | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const mapsRef = useRef<any>(null);
   const finishLineRef = useRef<google.maps.Polyline | null>(null);
@@ -57,6 +57,26 @@ export default function Group() {
     mapRef.current = map;
     mapsRef.current = maps;
   };
+
+  useEffect(() => {
+    if (mapRef.current && mapsRef.current && selectedCircuitName) {
+      const circuit = circuits[selectedCircuitName];
+      if (finishLineRef.current) {
+        finishLineRef.current.setMap(null); // Clear existing line
+      }
+      if (circuit.finishLine) {
+        const newFinishLine = new mapsRef.current.Polyline({
+          path: circuit.finishLine,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 5,
+        });
+        newFinishLine.setMap(mapRef.current);
+        finishLineRef.current = newFinishLine;
+      }
+    }
+  }, [mapRef.current, mapsRef.current, selectedCircuitName]);
 
   return (
     <div className="flex h-screen">
