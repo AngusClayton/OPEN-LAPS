@@ -76,3 +76,108 @@ To fix this, use `chmod 0700 /mosquitto/config/acl.conf`.
 1754109763: Sending PINGRESP to groupA
 1754109841: Received PINGREQ from groupA
 1754109841: Sending PINGRESP to groupA
+1754114591: No will message specified.
+1754114591: Sending CONNACK to mqttjs_cdbbe458 (0, 0)
+1754114591: Received SUBSCRIBE from mqttjs_cdbbe458
+1754114591: 	/5kfkl4/# (QoS 0)
+1754114591: Sending SUBACK to mqttjs_cdbbe458
+1754114594: No will message specified.
+1754114594: Sending CONNACK to angus-1234 (0, 0)
+1754114601: Received SUBSCRIBE from angus-1234
+1754114601: 	# (QoS 0)
+1754114601: Sending SUBACK to angus-1234
+1754114602: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114602: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114602: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114651: Received PINGREQ from mqttjs_cdbbe458
+1754114651: Sending PINGRESP to mqttjs_cdbbe458
+1754114663: Received PINGREQ from angus-1234
+1754114663: Sending PINGRESP to angus-1234
+1754114705: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114705: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114705: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114708: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114708: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114708: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus', ... (38 bytes))
+1754114711: Received PINGREQ from mqttjs_cdbbe458
+1754114711: Sending PINGRESP to mqttjs_cdbbe458
+1754114712: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus/pos', ... (38 bytes))
+1754114712: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/angus/pos', ... (38 bytes))
+1754114712: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/angus/pos', ... (38 bytes))
+1754114733: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114733: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114733: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114771: Received PINGREQ from mqttjs_cdbbe458
+1754114771: Sending PINGRESP to mqttjs_cdbbe458
+1754114789: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114789: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114789: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114794: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114794: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114794: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114817: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114817: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114817: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114823: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114823: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114823: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114825: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114825: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114825: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114831: Received PINGREQ from mqttjs_cdbbe458
+1754114831: Sending PINGRESP to mqttjs_cdbbe458
+1754114868: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114868: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114868: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114869: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114869: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114869: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114891: Received PINGREQ from mqttjs_cdbbe458
+1754114891: Sending PINGRESP to mqttjs_cdbbe458
+1754114897: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114897: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114897: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114897: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114897: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114897: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114898: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114899: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to mqttjs_cdbbe458 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114900: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114902: No will message specified.
+1754114902: Sending CONNACK to mqttjs_12c6bdff (0, 0)
+1754114902: Received SUBSCRIBE from mqttjs_12c6bdff
+1754114902: 	/5kfkl4/# (QoS 0)
+1754114902: Sending SUBACK to mqttjs_12c6bdff
+1754114906: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114906: Sending PUBLISH to mqttjs_12c6bdff (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114906: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/pos', ... (55 bytes))
+1754114962: Received PINGREQ from mqttjs_12c6bdff
+1754114962: Sending PINGRESP to mqttjs_12c6bdff
+1754114966: Received PINGREQ from angus-1234
+1754114966: Sending PINGRESP to angus-1234
+1754115019: Received PUBLISH from angus-1234 (d0, q0, r0, m0, '/5kfkl4/time', ... (68 bytes))
+1754115019: Sending PUBLISH to mqttjs_12c6bdff (d0, q0, r0, m0, '/5kfkl4/time', ... (68 bytes))
+1754115019: Sending PUBLISH to angus-1234 (d0, q0, r0, m0, '/5kfkl4/time', ... (68 bytes))
+1754115022: Received PINGREQ from mqttjs_12c6bdff
+1754115022: Sending PINGRESP to mqttjs_12c6bdff

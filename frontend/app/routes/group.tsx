@@ -54,8 +54,45 @@ const AnyReactComponent = ({ text }: { text: string }) => <div>{text}</div>;
     newClient.on('message', (topic, message) => {
       const payload = message.toString();
       console.log(`Received message on topic "${topic}": ${payload}`);
-      // Update the state with the new message.
       setMessages(prevMessages => [...prevMessages, { topic, message: payload }]);
+
+      // If the topic ends with /pos and payload is a driver position update
+      if (topic.endsWith('/pos')) {
+        console.log("Recieved driver position message");
+        try {
+          const data = JSON.parse(payload);
+          if (data.driver && typeof data.lat === 'number' && typeof data.lng === 'number') {
+            setMockLapTimes(prevLapTimes => {
+              // Update the position for the driver if found, else add new driver
+              const found = prevLapTimes.some(lap => lap.driver === data.driver);
+              if (found) {
+                console.log("found match");
+                return prevLapTimes.map(lap =>
+                  lap.driver === data.driver
+                    ? { ...lap, position: { lat: data.lat, lng: data.lng } }
+                    : lap
+                );
+              } else {
+                // Optionally add a new driver if not found
+                return [
+                  ...prevLapTimes,
+                  {
+                    driver: data.driver,
+                    last: '',
+                    lastTimestamp: '',
+                    best: '',
+                    bestTimestamp: '',
+                    status: 'Live',
+                    position: { lat: data.lat, lng: data.lng }
+                  }
+                ];
+              }
+            });
+          }
+        } catch (e) {
+          console.error('Failed to parse driver position payload:', e);
+        }
+      }
     });
 
     // Event handler for connection errors.
